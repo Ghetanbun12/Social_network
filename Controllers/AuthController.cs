@@ -1,0 +1,30 @@
+using Microsoft.AspNetCore.Mvc;
+using SocialNetwork.Services;
+
+namespace SocialNetwork.Controllers;
+
+[ApiController]
+[Route("api/auth")]
+public class AuthController : ControllerBase
+{
+    private readonly AuthService _authService;
+
+    public AuthController(AuthService authService)
+    {
+        _authService = authService;
+    }
+
+    [HttpPost("register")]
+    public async Task<IActionResult> Register(RegisterRequest request)
+    {
+        await _authService.Register(request);
+        return Ok("Register success");
+    }
+
+    [HttpPost("login")]
+    public async Task<IActionResult> Login(LoginRequest request)
+    {
+        var token = await _authService.Login(request);
+        return Ok(new { token });
+    }
+}

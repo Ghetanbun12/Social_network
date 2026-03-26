@@ -133,3 +133,4 @@ C:\Persional\learningDotnet\SocialNetwork\obj\Debug\net10.0\refint\SocialNetwork
 C:\Persional\learningDotnet\SocialNetwork\obj\Debug\net10.0\SocialNetwork.pdb
 C:\Persional\learningDotnet\SocialNetwork\obj\Debug\net10.0\SocialNetwork.genruntimeconfig.cache
 C:\Persional\learningDotnet\SocialNetwork\obj\Debug\net10.0\ref\SocialNetwork.dll
+C:\Persional\learningDotnet\SocialNetwork\obj\Debug\net10.0\SocialNetwork.sourcelink.json

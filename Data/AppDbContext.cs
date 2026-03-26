@@ -23,4 +23,5 @@ public class AppDbContext : DbContext
     }
     public DbSet<Notification> Notifications { get; set; }
     public DbSet<Message> Messages { get; set; }
+    public DbSet<RefreshToken> RefreshTokens { get; set; }
 }

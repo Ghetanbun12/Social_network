@@ -1,4 +1,5 @@
 namespace SocialNetwork.Entities;
+
 public class User
 {
     public int Id { get; set; }
@@ -11,4 +12,5 @@ public class User
     public string Role { get; set; } = "User";
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
     public ICollection<Post> Posts { get; set; } = new List<Post>();
+    public ICollection<RefreshToken> RefreshTokens { get; set; } = new List<RefreshToken>();
 }
