@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using SocialNetwork.Services;
 
+
 namespace SocialNetwork.Controllers;
 
 [ApiController]
@@ -26,5 +27,12 @@ public class AuthController : ControllerBase
     {
         var token = await _authService.Login(request);
         return Ok(new { token });
+    }
+
+    [HttpPost("refresh-token")]
+    public async Task<IActionResult> RefreshToken(RefreshTokenRequest request)
+    {
+        var response = await _authService.RefreshToken(request.RefreshToken!);
+        return Ok(response);
     }
 }

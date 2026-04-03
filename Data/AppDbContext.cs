@@ -15,12 +15,24 @@ public class AppDbContext : DbContext
     public DbSet<Follow> Follows { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
-    {
-        modelBuilder.Entity<Follow>()
-            .HasKey(f => new { f.FollowerId, f.FollowingId });
+{
+    modelBuilder.Entity<Follow>()
+        .HasKey(f => new { f.FollowerId, f.FollowingId });
 
-        base.OnModelCreating(modelBuilder);
-    }
+    modelBuilder.Entity<Follow>()
+        .HasOne(f => f.Follower)
+        .WithMany(u => u.Following)
+        .HasForeignKey(f => f.FollowerId)
+        .OnDelete(DeleteBehavior.Restrict);
+
+    modelBuilder.Entity<Follow>()
+        .HasOne(f => f.Following)
+        .WithMany(u => u.Followers)
+        .HasForeignKey(f => f.FollowingId)
+        .OnDelete(DeleteBehavior.Restrict);
+
+    base.OnModelCreating(modelBuilder);
+}
     public DbSet<Notification> Notifications { get; set; }
     public DbSet<Message> Messages { get; set; }
     public DbSet<RefreshToken> RefreshTokens { get; set; }

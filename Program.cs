@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using SocialNetwork.Services;
+using SocialNetwork.Services.Follow;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -37,6 +38,8 @@ builder.Services.AddAuthentication("Bearer")
     });
 
 builder.Services.AddScoped<AuthService>();
+builder.Services.AddScoped<ProfileService>();
+builder.Services.AddScoped<IFollowService, FollowService>();
 
 var app = builder.Build();
 
@@ -48,6 +51,8 @@ app.UseSwaggerUI();
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
+
+app.UseAuthentication();
 
 // 🔥 Map Controller
 app.MapControllers();
