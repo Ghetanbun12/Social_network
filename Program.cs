@@ -3,6 +3,8 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using SocialNetwork.Services;
 using SocialNetwork.Services.Follow;
+using SocialNetwork.Services.Post;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -40,6 +42,7 @@ builder.Services.AddAuthentication("Bearer")
 builder.Services.AddScoped<AuthService>();
 builder.Services.AddScoped<ProfileService>();
 builder.Services.AddScoped<IFollowService, FollowService>();
+builder.Services.AddScoped<IPostService, PostService>();
 
 var app = builder.Build();
 
