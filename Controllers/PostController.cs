@@ -1,6 +1,10 @@
 using SocialNetwork.Services.Post;
 namespace SocialNetwork.Controllers;
+
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+
+[Authorize]
 [ApiController]
 [Route("api/posts")]
 public class PostController : ControllerBase
@@ -13,8 +17,9 @@ public class PostController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<IActionResult> CreatePost(int userId, [FromBody] CreatePostRequest request)
+    public async Task<IActionResult> CreatePost([FromBody] CreatePostRequest request)
     {
+        var userId = int.Parse(User.FindFirst("userId")?.Value ?? "0");
         var result = await _postService.CreatePost(userId, request);
         if (!result)
             return BadRequest("Failed to create post");
@@ -23,15 +28,17 @@ public class PostController : ControllerBase
     }
 
     [HttpGet("{userId}")]
-    public async Task<IActionResult> GetPostsByUser(int userId)
+    public async Task<IActionResult> GetPostsByUser()
     {
+        var userId = int.Parse(User.FindFirst("userId")?.Value ?? "0");
         var posts = await _postService.GetPostsByUser(userId);
         return Ok(posts);
     }
 
     [HttpDelete("{postId}")]
-    public async Task<IActionResult> DeletePost(int postId, int userId)
+    public async Task<IActionResult> DeletePost(int postId)
     {
+        var userId = int.Parse(User.FindFirst("userId")?.Value ?? "0");
         await _postService.DeletePost(postId, userId);
         return Ok("Post deleted successfully");
     }
