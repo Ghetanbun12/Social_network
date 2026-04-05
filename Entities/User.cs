@@ -16,4 +16,5 @@ public class User
     public ICollection<RefreshToken> RefreshTokens { get; set; } = new List<RefreshToken>();
 
     public ICollection<Comment> Comments { get; set; } = new List<Comment>();
+    public ICollection<Reaction> Reactions { get; set; } = new List<Reaction>();
 }

@@ -7,6 +7,7 @@ using SocialNetwork.Services.Post;
 using SocialNetwork.Services.Comment;
 using Microsoft.OpenApi.Models;
 using System.IdentityModel.Tokens.Jwt;
+using SocialNetwork.Services.Reaction;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -77,6 +78,7 @@ builder.Services.AddScoped<ProfileService>();
 builder.Services.AddScoped<IFollowService, FollowService>();
 builder.Services.AddScoped<IPostService, PostService>();
 builder.Services.AddScoped<ICommentService, CommentService>();
+builder.Services.AddScoped<IReactionService, ReactionService>();
 
 var app = builder.Build();
 
