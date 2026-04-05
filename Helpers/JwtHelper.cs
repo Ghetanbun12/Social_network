@@ -13,8 +13,9 @@ public static class JwtHelper
     {
         var claims = new[]
         {
-            new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
-            new Claim("email", user.Email)
+            new Claim("userId", user.Id.ToString()),
+            new Claim(ClaimTypes.Name, user.Username),
+            new Claim(ClaimTypes.Email, user.Email)
         };
 
         var key = new SymmetricSecurityKey(
