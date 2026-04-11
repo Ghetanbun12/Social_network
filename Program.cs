@@ -8,6 +8,8 @@ using SocialNetwork.Services.Comment;
 using Microsoft.OpenApi.Models;
 using System.IdentityModel.Tokens.Jwt;
 using SocialNetwork.Services.Reaction;
+using SocialNetwork.Services.NewFeed;
+using SocialNetwork.Services.Search;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -17,6 +19,19 @@ JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
 
 // 🔥 Add Controller (backend chuẩn)
 builder.Services.AddControllers();
+
+// 🔥 Add CORS
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowReactApp",
+        builder =>
+        {
+            builder.WithOrigins("http://localhost:3000")
+                   .AllowAnyHeader()
+                   .AllowAnyMethod()
+                   .AllowCredentials();
+        });
+});
 
 // 🔥 Swagger (test API)
 builder.Services.AddEndpointsApiExplorer();
@@ -79,6 +94,8 @@ builder.Services.AddScoped<IFollowService, FollowService>();
 builder.Services.AddScoped<IPostService, PostService>();
 builder.Services.AddScoped<ICommentService, CommentService>();
 builder.Services.AddScoped<IReactionService, ReactionService>();
+builder.Services.AddScoped<INewFeedService, NewFeedService>();
+builder.Services.AddScoped<ISearchUser, SearchUserService>();
 
 var app = builder.Build();
 
@@ -88,6 +105,8 @@ app.UseSwaggerUI();
 
 // 🔥 Middleware
 app.UseHttpsRedirection();
+
+app.UseCors("AllowReactApp");
 
 app.UseAuthentication();
 

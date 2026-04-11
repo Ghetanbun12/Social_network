@@ -1,6 +1,5 @@
 namespace Microsoft.AspNetCore.Mvc;
 using SocialNetwork.Services.Reaction;
-using SocialNetwork.Entities;
 using Microsoft.AspNetCore.Authorization;
 
 [Authorize]
@@ -13,6 +12,7 @@ public class ReactionController : ControllerBase
     {
         _reactionService = reactionService;
     }
+    [HttpPost]
     public async Task<IActionResult> AddOrUpdateReaction(int postId, string type)
     {
         var userId = int.Parse(User.FindFirst("userId")?.Value ?? "0");

@@ -48,6 +48,18 @@ public class AuthService
 
         return GenerateJwtToken(user);
     }
+    public async Task Logout(string refreshToken)
+{
+    var token = await _context.RefreshTokens
+        .FirstOrDefaultAsync(t => t.Token == refreshToken);
+
+    if (token != null)
+    {
+        token.IsRevoked = true;
+        await _context.SaveChangesAsync();
+    }
+}
+
 
     private string GenerateJwtToken(User user)
     {
