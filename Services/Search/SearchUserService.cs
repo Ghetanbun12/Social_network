@@ -17,7 +17,9 @@ public class SearchUserService : ISearchUser
             .Where(u => u.Id != userId) 
             .Select(u => new SearchUser
             {
+                UserId = u.Id,
                 Username = u.Username
+
             })
             .ToListAsync();
 

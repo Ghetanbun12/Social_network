@@ -2,6 +2,7 @@ namespace SocialNetwork.Services.NewFeed;
 using SocialNetwork.DTOs.Posts;
 using Microsoft.EntityFrameworkCore;
 using SocialNetwork.Response.comment;
+using SocialMedia.Response.Reaction;
 
 public class NewFeedService : INewFeedService
 {
@@ -19,6 +20,8 @@ public class NewFeedService : INewFeedService
 
     var posts = await _context.Posts
         .Where(p => followingIds.Contains(p.UserId))
+        .Include(p => p.User)
+        .Include(p => p.Reactions)
         .Include(p => p.Comments)
             .ThenInclude(c => c.User)
         .OrderByDescending(p => p.CreatedAt)
@@ -31,6 +34,14 @@ public class NewFeedService : INewFeedService
         Id = p.Id,
         Content = p.Content,
         CreatedAt = p.CreatedAt,
+        User = new UserResponse
+        {
+            Id = p.User.Id,
+            Username = p.User.Username,
+            AvatarUrl = p.User.AvatarUrl
+        },
+        ReactionCount = p.Reactions.Count(),
+        UserReaction = p.Reactions.FirstOrDefault(r => r.UserId == userId)?.Type,
         Comments = p.Comments.Select(c => new GetCommentAndUser
         {
             Id = c.Id,

@@ -1,12 +1,13 @@
-namespace Microsoft.AspNetCore.Mvc;
+namespace SocialNetwork.Controllers;
 
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 using SocialNetwork.DTOs.User;
 using SocialNetwork.Services.Search;
 
 [Authorize]
 [ApiController]
-[Route("api/[controller]")]
+[Route("api/users/search")]
 public class SearchUserController : ControllerBase
 {
     private readonly ISearchUser _searchUserService;
@@ -19,7 +20,7 @@ public class SearchUserController : ControllerBase
     [HttpGet]
     public async Task<IActionResult> SearchUsers([FromQuery] string query)
     {
-        var userId = int.Parse(User.Claims.FirstOrDefault(c => c.Type == "id")?.Value ?? "0");
+        var userId = int.Parse(User.FindFirst("userId")?.Value ?? "0");
         var users = await _searchUserService.SearchUsers(query, userId);
         return Ok(users);
     }

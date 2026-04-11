@@ -28,10 +28,10 @@ public class PostController : ControllerBase
     }
 
     [HttpGet("{userId}")]
-    public async Task<IActionResult> GetPostsByUser()
+    public async Task<IActionResult> GetPostsByUser(int userId)
     {
-        var userId = int.Parse(User.FindFirst("userId")?.Value ?? "0");
-        var posts = await _postService.GetPostsByUser(userId);
+        var currentUserId = int.Parse(User.FindFirst("userId")?.Value ?? "0");
+        var posts = await _postService.GetPostsByUser(userId, currentUserId);
         return Ok(posts);
     }
 

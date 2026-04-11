@@ -45,4 +45,12 @@ public class ReactionService : IReactionService
             await _context.SaveChangesAsync();
         }
     }
+    public async Task<int> CountReactions(int postId)
+    {
+        var reaction = await _context.Reactions
+            .Where(r => r.PostId == postId)
+            .ToListAsync();
+        Console.WriteLine(reaction.Count);
+        return reaction.Count; 
+    }
 }

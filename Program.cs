@@ -10,6 +10,9 @@ using System.IdentityModel.Tokens.Jwt;
 using SocialNetwork.Services.Reaction;
 using SocialNetwork.Services.NewFeed;
 using SocialNetwork.Services.Search;
+using SocialNetwork.Services.BookMark;
+using SocialNetwork.Services.Notification;
+
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -83,7 +86,7 @@ builder.Services.AddAuthentication("Bearer")
             ValidAudience = builder.Configuration["Jwt:Audience"],
 
             IssuerSigningKey = new SymmetricSecurityKey(
-                Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"])
+                Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"] ?? "")
             )
         };
     });
@@ -96,6 +99,8 @@ builder.Services.AddScoped<ICommentService, CommentService>();
 builder.Services.AddScoped<IReactionService, ReactionService>();
 builder.Services.AddScoped<INewFeedService, NewFeedService>();
 builder.Services.AddScoped<ISearchUser, SearchUserService>();
+builder.Services.AddScoped<IBookMarkService, BookMarkService>();
+builder.Services.AddScoped<INotificationService, NotificationService>();
 
 var app = builder.Build();
 

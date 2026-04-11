@@ -1,6 +1,7 @@
 namespace Microsoft.AspNetCore.Mvc;
 using SocialNetwork.Services.Reaction;
 using Microsoft.AspNetCore.Authorization;
+using System.Runtime.CompilerServices;
 
 [Authorize]
 [ApiController]
@@ -28,5 +29,10 @@ public class ReactionController : ControllerBase
         var userId = int.Parse(User.FindFirst("userId")?.Value ?? "0");
         await _reactionService.RemoveReaction(userId, postId);
         return Ok("Reaction removed successfully");
+    }
+    [HttpGet]
+    public async Task<int> CountReactions(int postId)
+    {
+        return await _reactionService.CountReactions(postId);
     }
 }

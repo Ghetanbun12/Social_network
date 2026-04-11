@@ -1,3 +1,5 @@
+using SocialNetwork.Entities;
+
 namespace SocialNetwork.Entities;
 public class User
 {
@@ -16,5 +18,6 @@ public class User
     public ICollection<RefreshToken> RefreshTokens { get; set; } = new List<RefreshToken>();
 
     public ICollection<Comment> Comments { get; set; } = new List<Comment>();
+    public ICollection<Bookmark> Bookmarks { get; set; } = new List<Bookmark>();
     public ICollection<Reaction> Reactions { get; set; } = new List<Reaction>();
 }

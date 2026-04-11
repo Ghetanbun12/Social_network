@@ -14,6 +14,7 @@ public class AppDbContext : DbContext
     public DbSet<Reaction> Reactions { get; set; }
     public DbSet<Follow> Follows { get; set; }
 
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
 {
     modelBuilder.Entity<Follow>()
@@ -36,4 +37,6 @@ public class AppDbContext : DbContext
     public DbSet<Notification> Notifications { get; set; }
     public DbSet<Message> Messages { get; set; }
     public DbSet<RefreshToken> RefreshTokens { get; set; }
+
+    public DbSet<Bookmark> Bookmarks { get; set; }
 }
