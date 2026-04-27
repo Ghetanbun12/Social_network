@@ -18,10 +18,10 @@ public class BookmarkController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<IActionResult> GetBookmarks()
+    public async Task<IActionResult> GetBookmarks(int postId)
     {
         var userId = int.Parse(User.FindFirst("userId")?.Value ?? "0");
-        var result = await _bookMarkService.GetBookmarksAsync(userId);
+        var result = await _bookMarkService.GetBookMarksAsync(userId, postId);
         return Ok(result);
     }
 

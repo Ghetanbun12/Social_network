@@ -6,6 +6,6 @@ using SocialNetwork.DTOs.Posts;
 public interface IBookMarkService
 {
     Task<Bookmark> CreateBookMarkAsync(int userId, int postId);
-    Task<List<PostResponse>> GetBookmarksAsync(int userId);
+    Task<Bookmark?> GetBookMarksAsync(int userId, int postId);
     Task<bool> DeleteBookMarkAsync(int userId, int postId);
 }

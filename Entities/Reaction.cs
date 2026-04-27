@@ -6,7 +6,6 @@ public class Reaction
     public int PostId { get; set; }
     public string Type { get; set; } = "Like";
 
-    // Navigation
     public User User { get; set; }
     public Post Post { get; set; }
 }
